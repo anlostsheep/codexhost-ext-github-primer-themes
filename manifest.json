@@ -1,0 +1,149 @@
+{
+  "manifestVersion": 2,
+  "id": "github-primer-themes",
+  "name": {
+    "en": "GitHub Primer Themes",
+    "zh-CN": "GitHub 官方外观主题"
+  },
+  "version": "1.2.3",
+  "description": {
+    "en": "Official GitHub Primer appearance themes (3 Light + 4 Dark including Soft Dark, plus High Contrast) across Codex Desktop and CH Web, sourced directly from GitHub's @primer/primitives.",
+    "zh-CN": "完整还原 GitHub 官方外观主题（3 款浅色 + 4 款深色含 Soft dark，并支持高对比度开关），全部 CSS 色板直接提取自 GitHub 官方 @primer/primitives 仓库，支持 Codex Desktop 与 CH Web 跨端同步。"
+  },
+  "details": {
+    "en": "### Highlights\n\n- **100% Official GitHub Primer CSS**: Every color token (`--bgColor-*`, `--fgColor-*`, `--borderColor-*`, `--button-*`, `--diffBlob-*`, `--prettylights-syntax-*`) is synced directly from GitHub's official [`primer/primitives`](https://github.com/primer/primitives) (`@primer/primitives@11.10.0`).\n- **All 7 GitHub Themes + High Contrast (14 Official Stylesheets)**:\n  - **Light (3)**: Light default, Light protanopia & deuteranopia (`Beta`), Light tritanopia (`Beta`).\n  - **Dark (4)**: Dark default, Dark protanopia & deuteranopia (`Beta`), Dark tritanopia (`Beta`), and **Soft dark** (`dark_dimmed`).\n  - **Increase Contrast**: One-click switch to the official `*-high-contrast.css` counterpart for every theme.\n- **Single Theme & Sync with System**: Lock one theme or automatically switch between your preferred Day (Light) and Night (Dark) GitHub themes.\n- **Cross-Platform Settings Page & Quick Switcher Widget**: Manage themes in the GitHub-style **Theme preferences** page or switch instantly from the edge-docking floating capsule widget on both Codex Desktop and CH Web — pure frontend with zero background processes.",
+    "zh-CN": "### 特性亮点\n\n- **100% 源自 GitHub 官方 Primer CSS**：全部颜色与语义变量（`--bgColor-*`、`--fgColor-*`、`--borderColor-*`、`--button-*`、`--diffBlob-*`、`--prettylights-syntax-*`）均直接读取自 GitHub 官方 [`primer/primitives`](https://github.com/primer/primitives)（`@primer/primitives@11.10.0`）主题样式表。\n- **完整收录 7 大主题 × 高对比度（共 14 套官方样式）**：\n  - **浅色模式（3 套）**：Light default、Light protanopia & deuteranopia（红绿色盲友好 `Beta`）、Light tritanopia（蓝黄色盲友好 `Beta`）。\n  - **深色模式（4 套）**：Dark default、Dark protanopia & deuteranopia（红绿色盲友好 `Beta`）、Dark tritanopia（蓝黄色盲友好 `Beta`）、**Soft dark**（`dark_dimmed` 柔和深色）。\n  - **增强对比度开关**：一键切换至每款主题对应的官方 `*-high-contrast.css` 高对比度变体。\n- **单一主题 & 跟随系统自动切换**：支持锁定单一主题，或按日间浅色 / 夜间深色分别指定 GitHub 主题并跟随系统自动切换。\n- **跨端主题偏好页 + 悬浮速切挂件**：完整复刻 GitHub Settings → Appearance 界面体验，同时提供主界面轻量悬浮速切胶囊；纯前端实现，零后台常驻进程，Desktop 与 Web 通过共享 Host 存储实时同步。"
+  },
+  "author": "anlostsheep",
+  "repository": "https://github.com/anlostsheep/codexhost-ext-github-primer-themes",
+  "categories": ["appearance", "interface"],
+  "slots": ["appearance.theme"],
+  "icon": "assets/icon.png",
+  "screenshots": [
+    "assets/preview-dark.png",
+    "assets/preview-light.png",
+    "assets/preview-widget.png"
+  ],
+  "settingsSchema": [
+    {
+      "key": "themeMode",
+      "type": "select",
+      "label": {
+        "en": "Theme mode",
+        "zh-CN": "主题模式"
+      },
+      "description": {
+        "en": "Use a single GitHub theme or sync Day/Night themes with system appearance.",
+        "zh-CN": "固定使用单一 GitHub 主题，或按系统浅色/深色自动切换日间与夜间主题。"
+      },
+      "options": [
+        {
+          "value": "single",
+          "label": { "en": "Single theme", "zh-CN": "单一主题" }
+        },
+        {
+          "value": "auto",
+          "label": { "en": "Sync with system", "zh-CN": "跟随系统自动切换" }
+        }
+      ],
+      "default": "single"
+    },
+    {
+      "key": "singleTheme",
+      "type": "select",
+      "label": {
+        "en": "Active theme (Single mode)",
+        "zh-CN": "当前主题（单一模式）"
+      },
+      "options": [
+        { "value": "light", "label": { "en": "Light default", "zh-CN": "Light default（默认浅色）" } },
+        { "value": "light_colorblind", "label": { "en": "Light protanopia & deuteranopia", "zh-CN": "Light 红绿色盲友好" } },
+        { "value": "light_tritanopia", "label": { "en": "Light tritanopia", "zh-CN": "Light 蓝黄色盲友好" } },
+        { "value": "dark", "label": { "en": "Dark default", "zh-CN": "Dark default（默认深色）" } },
+        { "value": "dark_colorblind", "label": { "en": "Dark protanopia & deuteranopia", "zh-CN": "Dark 红绿色盲友好" } },
+        { "value": "dark_tritanopia", "label": { "en": "Dark tritanopia", "zh-CN": "Dark 蓝黄色盲友好" } },
+        { "value": "dark_dimmed", "label": { "en": "Soft dark", "zh-CN": "Soft dark（柔和深色）" } }
+      ],
+      "default": "dark_dimmed"
+    },
+    {
+      "key": "lightTheme",
+      "type": "select",
+      "label": {
+        "en": "Day theme (Sync mode)",
+        "zh-CN": "日间浅色主题（跟随系统）"
+      },
+      "options": [
+        { "value": "light", "label": { "en": "Light default", "zh-CN": "Light default（默认浅色）" } },
+        { "value": "light_colorblind", "label": { "en": "Light protanopia & deuteranopia", "zh-CN": "Light 红绿色盲友好" } },
+        { "value": "light_tritanopia", "label": { "en": "Light tritanopia", "zh-CN": "Light 蓝黄色盲友好" } }
+      ],
+      "default": "light"
+    },
+    {
+      "key": "darkTheme",
+      "type": "select",
+      "label": {
+        "en": "Night theme (Sync mode)",
+        "zh-CN": "夜间深色主题（跟随系统）"
+      },
+      "options": [
+        { "value": "dark", "label": { "en": "Dark default", "zh-CN": "Dark default（默认深色）" } },
+        { "value": "dark_colorblind", "label": { "en": "Dark protanopia & deuteranopia", "zh-CN": "Dark 红绿色盲友好" } },
+        { "value": "dark_tritanopia", "label": { "en": "Dark tritanopia", "zh-CN": "Dark 蓝黄色盲友好" } },
+        { "value": "dark_dimmed", "label": { "en": "Soft dark", "zh-CN": "Soft dark（柔和深色）" } }
+      ],
+      "default": "dark_dimmed"
+    },
+    {
+      "key": "increaseContrast",
+      "type": "boolean",
+      "label": {
+        "en": "Increase contrast",
+        "zh-CN": "增强对比度（High Contrast）"
+      },
+      "description": {
+        "en": "Enable official GitHub high-contrast Primer CSS variants for light and dark themes.",
+        "zh-CN": "为浅色与深色主题启用 GitHub 官方高对比度样式（*-high-contrast.css）。"
+      },
+      "default": false
+    },
+    {
+      "key": "showWidget",
+      "type": "boolean",
+      "label": {
+        "en": "Show quick theme switcher widget",
+        "zh-CN": "显示主页面主题速切挂件"
+      },
+      "description": {
+        "en": "Display a compact floating GitHub theme switcher button on the main workspace.",
+        "zh-CN": "在主界面边缘显示可拖动/收起的 GitHub 主题速切悬浮按钮。"
+      },
+      "default": true
+    }
+  ],
+  "page": {
+    "apiVersion": 1,
+    "entry": "page/index.mjs",
+    "style": "page/style.css",
+    "title": {
+      "en": "GitHub Themes",
+      "zh-CN": "GitHub 主题外观"
+    }
+  },
+  "widget": {
+    "apiVersion": 1,
+    "entry": "widget/index.mjs",
+    "style": "widget/style.css"
+  },
+  "desktop": {
+    "apiVersion": 1,
+    "script": "desktop/index.js",
+    "style": "desktop/style.css"
+  },
+  "web": {
+    "apiVersion": 1,
+    "entry": "web/index.mjs",
+    "style": "web/style.css"
+  }
+}

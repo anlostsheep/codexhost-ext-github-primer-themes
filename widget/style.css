@@ -1,0 +1,348 @@
+/* GitHub Primer Quick Theme Switcher — Edge-docking Draggable Widget */
+/* Overlay stays pointer-events: none; ONLY interactive capsule & popover use pointer-events: auto */
+
+.ghw-overlay {
+  --ghw-bg: var(--cx-page-bg, #151b23);
+  --ghw-surface: var(--cx-page-surface, #212830);
+  --ghw-text: var(--cx-page-text, #d1d7e0);
+  --ghw-muted: var(--cx-page-text-muted, #9198a1);
+  --ghw-border: var(--cx-page-border, #3d444d);
+  --ghw-accent: var(--cx-page-accent, #478be6);
+  --ghw-radius: var(--cx-page-radius, 6px);
+  --ghw-ease: cubic-bezier(0.2, 0.75, 0.3, 1);
+
+  position: fixed;
+  inset: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  pointer-events: none;
+  color: var(--ghw-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", "PingFang SC",
+    "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ghw-overlay *,
+.ghw-overlay *::before,
+.ghw-overlay *::after {
+  box-sizing: border-box;
+}
+
+.ghw-overlay[hidden] {
+  display: none;
+}
+
+/* Interactive edge-docking trigger tab (far away from bottom composer & send button) */
+.ghw-capsule {
+  pointer-events: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 9px;
+  border-radius: 999px;
+  border: 1px solid var(--ghw-border);
+  background: var(--ghw-surface);
+  color: var(--ghw-text);
+  font: inherit;
+  font-weight: 600;
+  cursor: grab;
+  touch-action: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.24);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.18s var(--ghw-ease),
+    padding 0.18s var(--ghw-ease);
+  user-select: none;
+  opacity: 0.78;
+}
+
+.ghw-capsule[data-dragging="true"] {
+  cursor: grabbing;
+  opacity: 1;
+  transition: none;
+}
+
+/* Edge-docked compact ear on right edge (default): stays sleek & unobtrusive on desktop & mobile */
+.ghw-capsule[data-dock="right"] {
+  border-radius: 999px 0 0 999px;
+  border-right-width: 0;
+  padding: 0 7px 0 9px;
+}
+
+.ghw-capsule[data-dock="left"] {
+  border-radius: 0 999px 999px 0;
+  border-left-width: 0;
+  padding: 0 9px 0 7px;
+}
+
+.ghw-capsule:hover,
+.ghw-capsule[aria-expanded="true"],
+.ghw-capsule:focus-visible {
+  opacity: 1;
+  border-color: var(--ghw-accent);
+}
+
+.ghw-capsule:focus-visible {
+  outline: 2px solid var(--ghw-accent);
+  outline-offset: 2px;
+}
+
+.ghw-capsule-icon {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.ghw-capsule-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--ghw-border);
+  flex: none;
+}
+
+/* Collapse label text when docked & idle so the edge tab stays ultra-compact (~44px wide) */
+.ghw-capsule-label {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-left: -6px;
+  transition:
+    max-width 0.18s var(--ghw-ease),
+    opacity 0.16s ease,
+    margin-left 0.18s var(--ghw-ease);
+}
+
+/* Keep edge tab compact while popover is open (popover already shows active theme name)
+   to prevent label expansion from crowding or overlapping the panel on narrow screens */
+@media (hover: hover) and (pointer: fine) {
+  .ghw-capsule:hover:not([aria-expanded="true"]) .ghw-capsule-label {
+    max-width: 110px;
+    opacity: 1;
+    margin-left: 0;
+  }
+}
+
+/* Popover panel anchored beside the handle, clamped cleanly inside viewport */
+.ghw-panel {
+  pointer-events: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 274px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid var(--ghw-border);
+  background: var(--ghw-surface);
+  color: var(--ghw-text);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34);
+}
+
+.ghw-panel[hidden] {
+  display: none;
+}
+
+.ghw-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--ghw-bg);
+  border-bottom: 1px solid var(--ghw-border);
+}
+
+.ghw-panel-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ghw-close {
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ghw-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.ghw-close:hover {
+  background: var(--ghw-surface);
+  color: var(--ghw-text);
+}
+
+.ghw-panel-body {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Mode segmented toggle */
+.ghw-seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid var(--ghw-border);
+  background: var(--ghw-bg);
+  gap: 2px;
+}
+
+.ghw-seg-btn {
+  height: 24px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ghw-muted);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ghw-seg-btn[aria-pressed="true"] {
+  background: var(--ghw-surface);
+  color: var(--ghw-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+.ghw-group-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ghw-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.ghw-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ghw-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ghw-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ghw-item:hover {
+  background: var(--ghw-bg);
+}
+
+.ghw-item[data-active="true"] {
+  background: var(--ghw-bg);
+  border-color: var(--ghw-accent);
+  font-weight: 600;
+}
+
+.ghw-item-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ghw-item-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ghw-palette {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+}
+
+.ghw-pdot {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  border: 1px solid rgba(128, 128, 128, 0.35);
+}
+
+.ghw-footer-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ghw-border);
+}
+
+.ghw-hc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--ghw-border);
+  background: var(--ghw-bg);
+  color: var(--ghw-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ghw-hc-btn[aria-pressed="true"] {
+  border-color: var(--ghw-accent);
+}
+
+.ghw-hc-pill {
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--ghw-surface);
+  color: var(--ghw-muted);
+  border: 1px solid var(--ghw-border);
+}
+
+.ghw-hc-btn[aria-pressed="true"] .ghw-hc-pill {
+  background: var(--ghw-accent);
+  border-color: var(--ghw-accent);
+  color: #ffffff;
+}
+
+.ghw-hide-btn {
+  align-self: flex-end;
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ghw-muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.ghw-hide-btn:hover {
+  color: var(--ghw-text);
+  text-decoration: underline;
+}
