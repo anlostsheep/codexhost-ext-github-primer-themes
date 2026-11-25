@@ -2293,6 +2293,7 @@ html[data-cx-ext-github-primer-themes-gh-active] table {
 html[data-cx-ext-github-primer-themes-gh-active] table th,
 html[data-cx-ext-github-primer-themes-gh-active] table td {
   border: 1px solid var(--borderColor-default) !important;
+  padding: 6px 13px !important;
 }
 
 html[data-cx-ext-github-primer-themes-gh-active] table thead th {

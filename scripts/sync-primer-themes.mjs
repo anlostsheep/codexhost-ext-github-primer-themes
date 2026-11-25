@@ -869,6 +869,7 @@ ${active} table {
 ${active} table th,
 ${active} table td {
   border: 1px solid var(--borderColor-default) !important;
+  padding: 6px 13px !important;
 }
 
 ${active} table thead th {

@@ -43,19 +43,19 @@ github-primer-themes/
 │   ├── generate-assets.mjs       # 生成图标与真实浏览器渲染截图
 │   └── pack-and-validate.mjs     # 校验 manifestVersion: 2 契约、运行测试并打包 dist/*.zip
 └── dist/
-    └── github-primer-themes-1.2.3.zip
+    └── github-primer-themes-1.2.4.zip
 ```
 
 ## 导入与启用
 
 ### 1. Codex Desktop
 1. 打开 **设置 → 插件**（Settings → Extensions / Plugins）。
-2. 点击 **导入插件**，选择 `dist/github-primer-themes-1.2.3.zip`（开发调试期也可直接导入本机目录）。
+2. 点击 **导入插件**，选择 `dist/github-primer-themes-1.2.4.zip`（开发调试期也可直接导入本机目录）。
 3. 启用 **GitHub 官方外观主题**，立即生效；点击 **打开页面** 或从设置左侧 **插件页面** 分组进入「GitHub 主题外观」切换主题与高对比度，也可在主窗口右侧中部贴边使用可拖动的悬浮速切小耳（远离底部发送按钮，避免误触）。
 
 ### 2. CH Web
 1. 从左侧一级导航进入 **插件 → 插件中心**。
-2. 点击 **导入插件** 并上传 `dist/github-primer-themes-1.2.3.zip`，随后点击 **启用**。
+2. 点击 **导入插件** 并上传 `dist/github-primer-themes-1.2.4.zip`，随后点击 **启用**。
 3. 启用后，可直接从 **插件工作区顶部的切页栏** 打开独立管理页「GitHub 主题外观」，也可在主界面使用右下角悬浮胶囊快速切主题，或在插件详情弹窗的声明式设置表单中修改选项。
 
 ## 从官方 Primer 仓库同步与重新打包

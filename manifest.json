@@ -5,7 +5,7 @@
     "en": "GitHub Primer Themes",
     "zh-CN": "GitHub 官方外观主题"
   },
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": {
     "en": "Official GitHub Primer appearance themes (3 Light + 4 Dark including Soft Dark, plus High Contrast) across Codex Desktop and CH Web, sourced directly from GitHub's @primer/primitives.",
     "zh-CN": "完整还原 GitHub 官方外观主题（3 款浅色 + 4 款深色含 Soft dark，并支持高对比度开关），全部 CSS 色板直接提取自 GitHub 官方 @primer/primitives 仓库，支持 Codex Desktop 与 CH Web 跨端同步。"
